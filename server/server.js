@@ -1,29 +1,30 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const connectDB = require('./config/db');
+const connectDB = require('./config/connect');
 
 dotenv.config();
 
 const app = express();
 
-
+// Middleware
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static('uploads')); // serve uploaded property images
 
-connectDB();
+// Routes
+app.use('/api/user', require('./routes/userRoutes'));
+app.use('/api/owner', require('./routes/ownerRoutes'));
+app.use('/api/admin', require('./routes/adminRoutes'));
 
+// Health check
 app.get('/', (req, res) => {
-  res.send('House Rent API is running...');
+  res.send('House Rent Management API is running...');
 });
 
-
+// Connect DB then start server
 const PORT = process.env.PORT || 5000;
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log('MongoDB connected');
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-  })
-  .catch((err) => console.log(err));
+connectDB().then(() => {
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+});
