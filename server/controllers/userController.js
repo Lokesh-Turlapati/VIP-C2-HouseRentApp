@@ -107,23 +107,22 @@ exports.getPropertyDetails = async (req, res) => {
 
 exports.bookProperty = async (req, res) => {
   try {
-    const { propertyId, contactNumber, message, moveInDate } = req.body;
+    const { propertyId, tenantPhone, tenantMessage } = req.body;
+    const startDate = new Date();
 
     const property = await Property.findById(propertyId);
     if (!property) return res.status(404).json({ message: 'Property not found' });
-
-    if (!property.available) {
-      return res.status(400).json({ message: 'Property is not available for booking' });
-    }
+    if (!property.available) return res.status(400).json({ message: 'Property is not available' });
 
     const booking = await Booking.create({
       property: property._id,
       tenant: req.user.id,
       owner: property.owner,
-      contactNumber,
-      message,
-      moveInDate,
-      monthlyRent: property.rentAmount
+      startDate,
+      monthlyRent: property.rentAmount,
+      tenantPhone,
+      tenantMessage,
+      status: 'pending'
     });
 
     res.status(201).json(booking);
@@ -131,7 +130,6 @@ exports.bookProperty = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
 
 exports.getMyBookings = async (req, res) => {
   try {
