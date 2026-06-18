@@ -5,8 +5,9 @@ A full-stack MERN application for managing rental properties with role-based acc
 ## Demo Video
 [Watch the demo here](https://drive.google.com/file/d/1bCorTmyvlb4coo6nun9QcmR3JlxHsTyF/view?usp=sharing)
 
-## Project Documentation & Templates
-[View filled internship templates here](https://drive.google.com/drive/u/1/folders/1N_2p7buUIP4LUrgL6S7Gf2_DbqHAINkh)
+## Project Documentation
+- [Phase-wise Templates](https://drive.google.com/drive/folders/1AcD61OjB0Qu6sjNMSLZrHmkkoh-xGllM?usp=drive_link)
+- [Project Documentation](https://drive.google.com/drive/folders/1bUme5YgL9j0UdkRkieMMs18KTPxipDMr?usp=sharing)
 
 ## Tech Stack
 - MongoDB, Express.js, React.js, Node.js
